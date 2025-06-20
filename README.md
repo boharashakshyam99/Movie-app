@@ -1,12 +1,41 @@
-# React + Vite
+# Movie Explorer App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React-based movie browser powered by the YTS.mx API. Users can search for movies by title or genre, add favourites, and explore movies with a clean paginated interface.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+**Search by Movie Title**  
+Type at least 3 characters to search for your favorite movies.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+**Filter by Genre**  
+Easily filter movies by genre using the dropdown.
+
+**Pagination Support**  
+Navigate through multiple pages of results using Next/Previous buttons.
+
+**Add to Favourites**  
+Mark your favorite movies and store them in localStorage for quick access later.
+
+---
+
+## 🛠️ Tech Stack
+
+- **React.js**
+- **YTS.mx API**
+- **Tailwind CSS** for styling
+- **React Router DOM** for navigation
+- **FontAwesome** for icons
+- **localStorage** for persistent favourites
+
+---
+
+## 📦 Installation
+
+```bash
+git clone https://github.com/your-username/movie-app.git
+cd movie-app
+npm install
+npm run dev
+```
