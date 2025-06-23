@@ -18,7 +18,6 @@ function SingleMovie() {
 
   return (
     <div className="min-h-screen bg-[#121212] text-white p-8 flex flex-col md:flex-row justify-center items-center gap-10">
-      {/* Movie Poster */}
       <div className="flex-shrink-0">
         <img
           src={movie.medium_cover_image}
@@ -27,7 +26,6 @@ function SingleMovie() {
         />
       </div>
 
-      {/* Movie Info */}
       <div className="max-w-lg space-y-4 text-left">
         <h2 className="mt-4 text-3xl font-bold text-center text-amber-300">
           {movie.title}

@@ -52,15 +52,16 @@ function Home() {
   return (
     <div
       style={{ backgroundColor: "#121212" }}
-      className="min-h-screen p-16 justify-center"
+      className="min-h-screen px-4 sm:px-8 lg:px-16 py-10"
     >
-      <div className="flex items-center space-x-2 relative mt-4 px-4 justify-around">
+      {/* Top Controls */}
+      <div className="flex flex-col md:flex-row items-center justify-between gap-6 mt-4">
         <form onSubmit={handleSearch} className="flex space-x-2 items-center">
           <input
             type="search"
             value={searchText}
             placeholder="Search..."
-            className="p-3 border-2 border-gray-800 rounded-3xl w-64 bg-transparent text-white"
+            className="p-3 border-2 border-gray-800 rounded-3xl w-48 sm:w-64 bg-transparent text-white"
             onChange={(e) => setSearchText(e.target.value)}
           />
           <button
@@ -75,62 +76,54 @@ function Home() {
             <FontAwesomeIcon icon={faMagnifyingGlass} />
           </button>
         </form>
-        <div>
-          <select
-            value={selectedGenre}
-            className="p-2 rounded-lg bg-yellow-500 text-black"
-            onChange={(e) => setSelectedGenre(e.target.value)}
-          >
-            <option value="">All Genres</option>
-            <option value="action">Action</option>
-            <option value="comedy">Comedy</option>
-            <option value="drama">Drama</option>
-            <option value="horror">Horror</option>
-            <option value="romance">Romance</option>
-            <option value="sci-fi">Sci-Fi</option>
-          </select>
-        </div>
 
-        <div className="flex items-center justify-center h-full gap-11">
+        <select
+          value={selectedGenre}
+          className="p-2 rounded-lg bg-yellow-500 text-black"
+          onChange={(e) => setSelectedGenre(e.target.value)}
+        >
+          <option value="">All Genres</option>
+          <option value="action">Action</option>
+          <option value="comedy">Comedy</option>
+          <option value="drama">Drama</option>
+          <option value="horror">Horror</option>
+          <option value="romance">Romance</option>
+          <option value="sci-fi">Sci-Fi</option>
+        </select>
+
+        <div className="flex items-center gap-3">
           <h1
-            className={
-              !toggle ? "text-white text-2xl" : "text-gray-500 text-2xl"
-            }
+            className={`text-2xl ${!toggle ? "text-white" : "text-gray-500"}`}
           >
             Movies
           </h1>
           <button
             onClick={() => setToggle(!toggle)}
-            className={`w-[50px] h-[28px] rounded-full relative cursor-pointer transition-colors duration-200 shadow-[1px_1px_10px_rgba(0,0,0,0.75)] ${
+            className={`w-14 h-7 rounded-full relative transition duration-200 shadow ${
               toggle ? "bg-[#b7b9ba]" : "bg-gray-600"
             }`}
           >
             <div
-              className={`w-[20px] h-[20px] bg-white rounded-full absolute top-1/2 left-[3px] transform transition-transform duration-200 ${
-                toggle
-                  ? "translate-x-[22px] -translate-y-1/2"
-                  : "-translate-y-1/2"
+              className={`w-5 h-5 bg-white rounded-full absolute top-1/2 left-1 transform -translate-y-1/2 transition-transform duration-200 ${
+                toggle ? "translate-x-[22px]" : ""
               }`}
             ></div>
           </button>
-          <h1
-            className={
-              toggle ? "text-white text-2xl" : "text-gray-500 text-2xl"
-            }
-          >
+          <h1 className={`text-2xl ${toggle ? "text-white" : "text-gray-500"}`}>
             Favourites
           </h1>
         </div>
       </div>
 
-      <div className="flex mt-16 text-gray-400 gap-10">
+      {/* Content */}
+      <div className="flex flex-col mt-10 text-gray-400">
         {!toggle ? (
-          <div className="w-fit">
+          <>
             <h1 className="text-2xl mb-4 text-white">Movies</h1>
             {isLoading && <p>Loading...</p>}
             {errorMsg && <p>{errorMsg}</p>}
 
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-6 justify-center">
               {moviesData?.length > 0 &&
                 moviesData.map((movie) => {
                   const {
@@ -145,19 +138,17 @@ function Home() {
                   const isFav = favourites.some((fav) => fav.id === id);
 
                   return (
-                    <div className="w-56">
-                      <NavLink to={`movie/${imdb_code}`} key={imdb_code}>
-                        <div
-                          key={id}
-                          className="block overflow-hidden rounded-xl"
-                        >
+                    <div className="w-40 sm:w-44 md:w-56" key={id}>
+                      <NavLink to={`movie/${imdb_code}`}>
+                        <div className="overflow-hidden rounded-xl">
                           <img
                             src={medium_cover_image}
                             alt={title}
-                            className="w-full h-80 object-cover hover:scale-105"
+                            className="w-full h-64 sm:h-72 object-cover hover:scale-105 transition-transform"
                           />
                         </div>
                       </NavLink>
+
                       <div className="flex m-2 text-white items-start">
                         <div className="mr-2 cursor-pointer">
                           <FontAwesomeIcon
@@ -175,8 +166,8 @@ function Home() {
                           />
                         </div>
 
-                        <div key={id} className="w-full">
-                          <NavLink to={`movie/${imdb_code}`} key={imdb_code}>
+                        <div className="w-full">
+                          <NavLink to={`movie/${imdb_code}`}>
                             <h2 className="text-lg mt-2 hover:text-yellow-400">
                               {movieName.length > 10
                                 ? `${movieName}...`
@@ -184,13 +175,13 @@ function Home() {
                             </h2>
                           </NavLink>
                           <div className="flex justify-between mt-2">
-                            <p className=" text-gray-500">{year}</p>
+                            <p className="text-gray-500">{year}</p>
                             <div className="flex gap-1">
                               <FontAwesomeIcon
                                 icon={faStar}
                                 className="text-yellow-200"
                               />
-                              <p className=" text-gray-500">{rating}</p>
+                              <p className="text-gray-500">{rating}</p>
                             </div>
                           </div>
                         </div>
@@ -199,21 +190,24 @@ function Home() {
                   );
                 })}
             </div>
-          </div>
+          </>
         ) : (
-          <div className="w-fit">
+          <>
             <h1 className="text-2xl mb-4 text-white">Favourites</h1>
             {favourites.length === 0 ? (
               <p className="text-gray-500">No favourites yet</p>
             ) : (
               favourites.map((fav) => (
-                <div key={fav.id} className="text-white flex mb-5 gap-4">
+                <div
+                  key={fav.id}
+                  className="text-white flex mb-5 gap-4 flex-wrap sm:flex-nowrap"
+                >
                   <img
                     src={fav.medium_cover_image}
-                    className="h-20"
+                    className="h-24 w-20 object-cover"
                     alt={fav.title}
                   />
-                  <div className="w-32">
+                  <div className="w-full sm:w-32">
                     <h1 className="text-lg">{fav.title}</h1>
                     <p className="text-sm text-gray-400">{fav.year}</p>
                   </div>
@@ -256,29 +250,28 @@ function Home() {
                 </div>
               ))
             )}
-          </div>
+          </>
         )}
       </div>
-      {toggle ? (
-        ""
-      ) : (
-        <div className="text-white text-center p-10 flex justify-center gap-3 ">
+
+      {!toggle && (
+        <div className="text-white text-center p-10 flex flex-wrap justify-center gap-4">
           <button
-            className="bg-amber-300 text-gray-600  w-20 h-10 rounded-2xl cursor-pointer"
+            className="bg-amber-300 text-gray-600 w-24 h-10 rounded-2xl"
             onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-            disabled={setCurrentPage === 1}
+            disabled={currentPage === 1}
           >
-            previous
+            Previous
           </button>
           <p className="pt-2">{currentPage}</p>
           <button
-            className="bg-amber-300 text-gray-600 w-20 h-10 rounded-2xl cursor-pointer"
+            className="bg-amber-300 text-gray-600 w-24 h-10 rounded-2xl"
             onClick={() =>
-              setCurrentPage((prev) => Math.min(prev + 1, totalPosts))
+              setCurrentPage((prev) => Math.min(prev + 1, pages.length))
             }
-            disabled={setCurrentPage === totalPosts}
+            disabled={currentPage === pages.length}
           >
-            next
+            Next
           </button>
         </div>
       )}
